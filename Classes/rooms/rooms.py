@@ -1,6 +1,7 @@
 #rooms
 class Room(object):
     all_rooms=0
+    rooms=[]
     def __init__(self,name,what_type):
         self.all_rooms+=1
         self.what_type=what_type
@@ -8,7 +9,8 @@ class Room(object):
     def __init__(self):
         pass
 
-    def create_room(self,name,what_type):
+    def create_room(self,*args,what_type):
+        print (len(args))
         self.what_type=what_type
         self.all_rooms+=1
         return self.all_rooms
@@ -30,3 +32,4 @@ class LivingSpace(Room):
         pass
     def create(self,name):
         self.name=name
+
