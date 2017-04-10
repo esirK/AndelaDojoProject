@@ -14,10 +14,15 @@ class TestCreateRoom(unittest.TestCase):
 
     def test_create_room_true(self):
         initial_room_count=self.room_instance.all_rooms
-        blue_office=self.room_instance.create_room("Blue","office")
+        blue_office=self.room_instance.create_room("office","Blue")
         self.assertTrue(blue_office)
         new_room_count=self.room_instance.all_rooms
         self.assertEqual(new_room_count-initial_room_count,1)
+        
+    def test_multiple_inputs(self):
+        multiple_rooms=Room()
+        multiples=multiple_rooms.create_room("office","Xmas")
+        
 
     def test_size_of_office_equal_6(self):
         self.assertEqual(self.office.size,6,msg="Size Of Office Must Be 6")
