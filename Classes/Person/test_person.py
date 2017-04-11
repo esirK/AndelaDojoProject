@@ -2,9 +2,11 @@ import unittest
 from person import Person,Fellow,Staff
 
 class TestPersons(unittest.TestCase):
-    person=Person()
-    x_staff=Person()
-    x_fellow=Person()
+    #rooms
+    rooms=["Tsavo","ManEater","Makuti","Manyani"]
+    person=Person(rooms)
+    x_staff=Person(rooms)
+    x_fellow=Person(rooms)
 
     def test_add_person(self):
         num_persons=Person.num_of_persons_at_dojo
