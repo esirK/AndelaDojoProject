@@ -15,30 +15,30 @@ class Person:
     def add_person(self,name,p_type,accommodation="N"):
         Person.num_of_persons_at_dojo+=1
         self.name=name
-        self.p_type=p_type
+        self.person_type=p_type
         self.accommodation=accommodation
 
-        x=self.name,self.p_type,accommodation
+        x=self.name,self.person_type,accommodation
         print(x[0])
         if x[1]=="Staff"and x[2]=="Y":
             return "Staff's Can't Get Accommodation"
         
-        #self.persons.append(x[0])
-        #print (x[0]+" has been successfully added.")
-        #print (x[0]+" has been allocatedd ")
-        #print (self.persons)
         pers=[]
         pers.append(p_type)
 
         #Add a person to room Randomly
-        if self.p_type=="Staff":
+        if self.person_type=="Staff":
             self.accommodation="N"
-            add_a_staffx=Staff().create_staff(name,self.rooms)
+            add_a_staff_x=Staff().create_staff(name,self.rooms)
             #Add Staff To Database/TextFile
-            print (add_a_staffx)
+            print (add_a_staff_x)
             #return Room Allocated
-        
-        return pers
+        elif self.person_type=="Fellow":
+            add_a_fellow_x=Fellow().create_fellow(name,self.rooms)
+            print (add_a_fellow_x)
+        else:
+            print ("No Person Of That Type At Andela Dojo")
+        #return pers
     
 class Staff(Person):
     staffs=[]
@@ -61,7 +61,7 @@ class Staff(Person):
         
 
 class Fellow(Person):
-    def __init__(self,name,office,living_room):
+    def __init__(self):
         pass
     rooms=[]
     fellows=[]
@@ -71,13 +71,13 @@ class Fellow(Person):
         how_many_rooms_available=len(rooms)
         for fellow in self.fellows:
             if how_many_rooms_available>1:
-                self.fellows_and_rooms[str(staff)]=rooms[random.randrange(how_many_rooms_available)]
+                self.fellows_and_rooms[str(fellow)]=rooms[random.randrange(how_many_rooms_available)]
                 how_many_rooms_available-=1
             elif how_many_rooms_available==1:
-                self.fellows_and_rooms[str(staff)]=rooms[0]
+                self.fellows_and_rooms[str(fellow)]=rooms[0]
             else:
                 print ("No More Rooms Available")
-        return self.staffs_and_rooms
+        return self.fellows_and_rooms
         
         
     
@@ -85,7 +85,7 @@ x_staff=Person(["one","two","three","four","five","six"])
 #print (Person.num_of_persons_at_dojo)
         
 x_staff.add_person("Mas","Staff")
-x_staff.add_person("Sam","Staff")
+x_staff.add_person("Sam","Fellow")
 #y_staff=
 #print(Person.num_of_persons_at_dojo)
         
