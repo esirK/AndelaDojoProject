@@ -3,8 +3,8 @@ from rooms import  Room,Office,LivingSpace
 
 class TestCreateRoom(unittest.TestCase):
     room_instance=Room()
-    office=Office()
-    living_space=LivingSpace()
+    office=Office("Wakubwa")
+    living_space=LivingSpace("Wazec")
 
     def test_office_is_instance_of_room(self):
         self.assertIsInstance(self.office,Room,msg="Office Should Be An Instance Of Room")
@@ -14,14 +14,14 @@ class TestCreateRoom(unittest.TestCase):
 
     def test_create_room_true(self):
         initial_room_count=self.room_instance.all_rooms
-        blue_office=self.room_instance.create_room("office","Blue")
+        blue_office=self.room_instance.create_room("Blue","OFFICE")
         self.assertTrue(blue_office)
         new_room_count=self.room_instance.all_rooms
         self.assertEqual(new_room_count-initial_room_count,1)
         
     def test_multiple_inputs(self):
         multiple_rooms=Room()
-        multiples=multiple_rooms.create_room("office","Xmas")
+        multiples=multiple_rooms.create_room("Xmas","OFFICE")
         
 
     def test_size_of_office_equal_6(self):
@@ -37,13 +37,11 @@ class TestCreateRoom(unittest.TestCase):
         self.assertEqual(self.living_space.what_type,"LIVING_ROOM")
 
     def test_create_office(self):
-        texasOffice=Office()
-        texasOffice.create("Texas")
+        texasOffice=Office("Texas")
         self.assertNotEqual(texasOffice.what_type,"LIVING_ROOM")
         
     def test_create_living_space(self):
-        texasLiving=LivingSpace()
-        texasLiving.create("TexasLife")
+        texasLiving=LivingSpace("TexasLife")
         self.assertNotEqual(texasLiving.what_type,"OFFICE")    
     
 if __name__=="__main__":
