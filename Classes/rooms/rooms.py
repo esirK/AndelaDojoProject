@@ -1,4 +1,6 @@
 #rooms
+import random
+
 class Room(object):
     all_rooms=0
     rooms=[]
