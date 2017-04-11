@@ -13,10 +13,10 @@ class Room(object):
         asmany_names.append(name)
         if self.what_type=="LIVING_ROOM":
             create_living_room=LivingSpace(name)
-            create_living_room
+            #create_living_room
         else:
             creat_office=Office(name)
-            creat_office
+            #creat_office
 
        # print (asmany_names)
         return self.all_rooms
@@ -32,7 +32,7 @@ class Office(Room):
         for i in range(0,len(list_of_names)):
             Room.all_rooms+=1
             Room.rooms.append(list_of_names[i])
-            print ("Offiece "+list_of_names[i]+" has Been successfully Created!")
+            print ("Office "+list_of_names[i]+" has Been successfully Created!")
     
         
 class LivingSpace(Room):
