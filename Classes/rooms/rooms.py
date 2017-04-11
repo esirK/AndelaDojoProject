@@ -4,10 +4,6 @@ import random
 class Room(object):
     all_rooms=0
     rooms=[]
-    def __init__(self,name,what_type):
-        self.all_rooms+=1
-        self.what_type=what_type
-
     def __init__(self):
         pass
 
@@ -16,10 +12,10 @@ class Room(object):
         asmany_names=[]
         asmany_names.append(name)
         if self.what_type=="LIVING_ROOM":
-            create_living_room=LivingSpace.create(self,name)
+            create_living_room=LivingSpace(name)
             create_living_room
         else:
-            creat_office=Office.create(self,name)
+            creat_office=Office(name)
             creat_office
 
        # print (asmany_names)
@@ -32,29 +28,23 @@ class Office(Room):
     
     def __init__(self,name):
         #print ("Offiece"+name+" has Been successfully Created!")
-        pass
-    def create(self,name):
         list_of_names=name.split(',')
-        #print (len(list_of_names))
         for i in range(0,len(list_of_names)):
             Room.all_rooms+=1
             Room.rooms.append(list_of_names[i])
             print ("Offiece "+list_of_names[i]+" has Been successfully Created!")
-        return Room.all_rooms
+    
         
 class LivingSpace(Room):
     size=4
     what_type="LIVING_ROOM"
     def __init__(self,name):
         #return " Living Room "+name+" has Been successfully Created!"
-        pass
-    def create(self,name):
         list_of_names=name.split(',')
         for i in range(0,len(list_of_names)):
             Room.all_rooms+=1
             Room.rooms.append(list_of_names[i])
             print( "Living Room "+list_of_names[i]+" has Been successfully Created!")
-        return Room.all_rooms
 
 rx=Room()
 rx.create_room("Wabudabu,Joggoo","OFFICE")
