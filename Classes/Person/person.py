@@ -10,7 +10,7 @@ class Person:
     rooms=[]
     def __init__(self,rooms):
         self.rooms=rooms
-        print (self.rooms)
+        #print (self.rooms)
 
     def add_person(self,name,p_type,accommodation="N"):
         Person.num_of_persons_at_dojo+=1
@@ -63,12 +63,21 @@ class Staff(Person):
 class Fellow(Person):
     def __init__(self,name,office,living_room):
         pass
-
+    rooms=[]
     fellows=[]
     fellows_and_rooms={}
     def create_fellow(self,name,rooms):
         self.fellows.append(name)
         how_many_rooms_available=len(rooms)
+        for fellow in self.fellows:
+            if how_many_rooms_available>1:
+                self.fellows_and_rooms[str(staff)]=rooms[random.randrange(how_many_rooms_available)]
+                how_many_rooms_available-=1
+            elif how_many_rooms_available==1:
+                self.fellows_and_rooms[str(staff)]=rooms[0]
+            else:
+                print ("No More Rooms Available")
+        return self.staffs_and_rooms
         
         
     
