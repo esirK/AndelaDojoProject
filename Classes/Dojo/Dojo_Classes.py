@@ -8,8 +8,9 @@ class Dojo(object):
         self.list_persons=[]
         self.list_living_rooms=[]
         self.list_office_rooms=[]
-        self.person_and_office_room={}
-        self.person_and_living_room={}
+        self.list_of_un_allocated_persons=[]
+        self.list_of_fellows_with_no_accommodation=[]
+        self.list_of_full_rooms=[]
         
 
         
@@ -23,30 +24,38 @@ class Dojo(object):
         self.list_persons.append(person)
         how_many_offices_available=len(self.list_office_rooms)
         if person_type=="Staff":
-            print (how_many_offices_available)
             if how_many_offices_available>1:
+                print ("We Only Have "+str(how_many_offices_available)+" Office Left")
                 #Room Is Available
                 #check if its full (A room is full if len(room)==6)
                 print("Rooms Available")
                 random_room_index=random.randrange(how_many_offices_available)
-                print (name+" has been allocated the "+self.list_office_rooms[random_room_index].name)#
-                #Count number of persons in offices
-                person_in_room=[]
-                for k,v in self.person_and_office_room.items():
-                    person_in_room.append(v)
-                room_name=self.list_office_rooms[random_room_index].name
-                print (str(person_in_room.count(room_name))+" Checkkkkkkkkkkkkkkkk")
-                if (person_in_room.count(room_name))>6:
-                    #Remove That room
-                    print("Room Full")
-                else:
-                    self.person_and_office_room[name]=room_name
-                
+                print (person.name+" has been allocated the "+str(random_room_index)+" Ngapi"+self.list_office_rooms[random_room_index].name)#
+                self.list_office_rooms[random_room_index].append(person)#Add a Staff to the office
+
+                if len(self.list_office_rooms[random_room_index])==6:
+                    #Room is Full: Remove it from List Of Non full Offices
+                    self.list_of_full_rooms.append(self.list_office_rooms[random_room_index])
+                    del self.list_office_rooms[random_room_index]
+                    #Reduce Number of offices remaining
+                    how_many_offices_available-=1
+                    
             elif how_many_offices_available==1:
                 room_name=self.list_office_rooms[0].name
-                self.person_and_office_room[name]=room_name
                 
                 print (name+" has been allocated the "+(self.list_office_rooms[0].office_or_cube)+" "+(room_name))#
+                self.list_office_rooms[0].append(person)
+                if len(self.list_office_rooms[0])==6:
+                    #Room is Full
+                    self.list_of_full_rooms.append(self.list_office_rooms[0])
+                    del self.list_office_rooms[0]
+                    #No office Remaing 
+                    how_many_offices_available=0
+            else:
+                print ("No Office Rooms  Available For Allocation")
+                self.list_of_un_allocated_persons.append(person)
+
+                
         elif person_type=="Fellow":
             how_many_cubes_available=len(self.list_living_rooms)
             #Check if Fellow Want's Accommodation
@@ -54,43 +63,62 @@ class Dojo(object):
             if how_many_offices_available>1:
             #Office Room Is Available
                 random_room_index=random.randrange(how_many_offices_available)
-                print (name+" has been allocated the "+self.list_office_rooms[random_room_index].name)#
-                room_name=self.list_office_rooms[random_room_index].name
-                self.person_and_office_room[name]=room_name
-                how_many_offices_available-=1
+                print (name+" has been allocated the "+str(random_room_index)+" "+self.list_office_rooms[random_room_index].name)#
+                self.list_office_rooms[random_room_index].append(name)
+                if len(self.list_office_rooms[random_room_index])==6:
+                    #Room is Full Remove it
+                    self.list_of_full_rooms.append(self.list_office_rooms[random_list_office])
+                    del self.list_office_rooms[random_room_index]
+                    #Reduce offices Remaining
+                    how_many_offices_available-=1
                 
             elif how_many_offices_available==1:
-                room_name=self.list_office_rooms[0].name
-                self.person_and_office_room[name]=room_name
-                
                 print (name+" has been allocated the "+(self.list_office_rooms[0].office_or_cube)+" "+(room_name))#
+                self.list_office_rooms[0].append(name)
+                if len(self.list_office_rooms[random_room_index])==6:
+                    #Room is Full Remove it
+                    self.list_of_full_rooms.append(self.list_office_rooms[0])
+                    del self.list_office_rooms[0]
+                    #Reduce offices Remaining
+                    how_many_offices_available=0
             else:
-                print("No Living Room's Remaining")
+                print ("No Office Rooms  Available For Allocation")
+                self.list_of_un_allocated_persons.append(name)
+                #self.list_of_fellows_with_no_accommodation.append(name)
+                
             if accommodation=='Y':
                 if how_many_cubes_available>1:
-                    
                     #Cube Room Is Available
                     #Check if There is an Empty One
                     
                     random_room_index=random.randrange(how_many_cubes_available)
                     room_name=self.list_living_rooms[random_room_index].name
                     print (name+" has been allocated the "+room_name)#
-                    self.person_and_living_room[name]=room_name
-                    how_many_cubes_available-=1
-                    
+                    self.list_living_rooms[random_room_index].append(name)
+
+                    if len(self.list_living_rooms[random_room_index])==4:
+                        #Room is Full Remove it
+                        self.list_of_full_rooms.append(self.list_living_rooms[random_room_index])
+                        del self.list_living_rooms[random_room_index]
+                        #Reduce offices Remaining
+                        how_many_cubes_available-=1
+                        
                 elif how_many_cubes_available==1:
                     room_name=self.list_living_rooms[0].name
-                    #self.person_and_room[name]=room_name
                     print (name+" has been allocated the "+(self.list_living_rooms[0].office_or_cube)+" "+(room_name))#
+                    self.list_living_rooms[0].append(name)
+                    if len(self.list_living_rooms[0])==4:
+                        #KaCube Kamejaa
+                        self.list_of_full_rooms.append(self.list_living_rooms[0])
+                        del self.list_living_rooms[0]
+                        how_many_cubes_available=0
                 else:
                     print("No Living Room's Remaining")
-
-            
-                
-                
+                    self.list_of_fellows_with_no_accommodation.append(name)
         #Allocate room
-        
-        
+
+    
+    
     def create_room(self,name,office_or_cube):
         office_or_cube=office_or_cube.upper()
         classi=rooms.room_new.Room(name,office_or_cube)
@@ -121,6 +149,9 @@ dojo.create_room("Kikwetu","OFFICE")
 #dojo.add_person("Wahidu","Fellow","Y")
 #dojo.add_person("iduko","Fellow","Y")
 
+
+print ("The Dojo Have "+str(len(dojo.list_office_rooms))+" Starting Rooms")
+
 dojo.add_person("Makena1","Staff","Y")
 dojo.add_person("Mwiki11","Staff","Y")
 dojo.add_person("namine1","Staff","Y")
@@ -137,8 +168,14 @@ dojo.add_person("namine4","Staff","Y")
 
 #dojo.add_person("Kimwi","Staff","Y")
 
-print (len(dojo.list_persons))
-print (len(dojo.list_office_rooms))
-print (dojo.person_and_office_room)#Offices
-print (dojo.person_and_living_room)#Cubes
-d=dojo.person_and_office_room
+print ("The Dojo Have "+str(len(dojo.list_persons))+" Person's")
+print ("The Dojo Have "+str(len(dojo.list_office_rooms))+" Ending  Rooms")
+
+
+print ("The Dojo Have "+str(len(dojo.list_of_full_rooms))+" Full  Rooms")
+
+#Print Persons Inside An office
+for room in dojo.list_of_full_rooms:
+    print (room.name+" "+room.office_or_cube+" Has The following People")
+    for person in room:
+        print (person.name)
