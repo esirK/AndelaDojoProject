@@ -1,6 +1,5 @@
 import sys
 import random
-#sys.path.append('../')
 import Person.person_new
 class Staff(Person.person_new.Person):
     def __init__(self,person,rooms):
