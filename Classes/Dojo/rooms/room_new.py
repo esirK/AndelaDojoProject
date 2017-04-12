@@ -1,6 +1,9 @@
 import random
-class Room(object):
-    rooms_at_dojo=0
+'''
+class Room inherit from  a list in order to store persons into it  
+'''
+class Room(list):
+    total_rooms_at_dojo=0
     def __init__(self,name,office_or_cube):
         self.office_or_cube=office_or_cube
         self.name=name
