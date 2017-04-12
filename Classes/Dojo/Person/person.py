@@ -2,7 +2,7 @@
 import sys
 import random
 sys.path.append('../')
-import rooms
+#import rooms
 
 class Person:
     num_of_persons_at_dojo=0
@@ -21,27 +21,30 @@ class Person:
         self.accommodation=accommodation
 
         x=self.name,self.person_type,accommodation
-        #print(x[0])
+        
         if x[1]=="Staff"and x[2]=="Y":
             return "Staff's Can't Get Accommodation"
-        person_name_and_rooms_allocated=[]
+        self.person_name_and_rooms_allocated=[]
         #Add a person to room Randomly
+        
         if self.person_type=="Staff":
             self.accommodation="N"
             add_a_staff_x=Staff().create_staff(name,self.office_rooms)
             #Add Staff To Database/TextFile
-            #print (add_a_staff_x)
-            person_name_and_rooms_allocated.append(add_a_staff_x)
+            
+            self.person_name_and_rooms_allocated.append(add_a_staff_x)
             #return Room Allocated
+            
         elif self.person_type=="Fellow":
+        
             add_a_fellow_x_to_office=Fellow().create_fellow(name,self.living_rooms)
             add_a_fellow_y_to_living_room=Fellow().create_fellow(name,self.office_rooms)
             
-            person_name_and_rooms_allocated.append(add_a_fellow_y_to_living_room)
-            person_name_and_rooms_allocated.append(add_a_fellow_x_to_office)
+            #person_name_and_rooms_allocated.append(add_a_fellow_y_to_living_room)
+            self.person_name_and_rooms_allocated.append(add_a_fellow_x_to_office)
         else:
             print ("No Person Of That Type At Andela Dojo")
-        return person_name_and_rooms_allocated
+        return self.person_name_and_rooms_allocated
     
 class Staff(Person):
     staffs=[]
@@ -81,8 +84,8 @@ class Fellow(Person):
                 self.fellows_and_rooms[str(fellow)]=rooms[0]
             else:
                 print ("No More Rooms Available")
-            self.fellow_office_and_living_room.append(self.fellows_and_rooms)
-        print(self.fellows_and_rooms)
+        return self.fellows_and_rooms
+        
         
         
     
@@ -92,12 +95,5 @@ x_staff=Person(["Office_one","Office_two","Office_three","Office_four","Office_f
 print (x_staff.add_person("Mas","Staff"))
 print (x_staff.add_person("Sam","Fellow"))
 print (x_staff.add_person("Peky","Fellow"))
-#y_staff=
-#print(Person.num_of_persons_at_dojo)
-        
-#x_fellow=Person()
-#print (x_fellow.add_person("Willi","Fellow","Y"))
-#print (Person.num_of_persons_at_dojo)
-        
 
  

@@ -9,10 +9,8 @@ class Room(object):
         pass
 
     def create_room(self,name,what_type):
-        self.what_type=what_type
-        asmany_names=[]
-        asmany_names.append(name)
-        if self.what_type=="LIVING_ROOM":
+        self.class_type=what_type
+        if self.class_type=="LIVING_ROOM":
             create_living_room=LivingSpace(name)
             #create_living_room
         else:
