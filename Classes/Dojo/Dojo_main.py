@@ -1,8 +1,10 @@
 #Cilass Dojo
 import Person.person_new
+import Person.Staff.staff
 import rooms.room_new
 import random
 import collections
+
 class Dojo(object):
     def __init__(self):
         self.list_persons=[]
@@ -11,10 +13,7 @@ class Dojo(object):
         self.list_of_un_allocated_persons=[]
         self.list_of_fellows_with_no_accommodation=[]
         self.list_of_full_rooms=[]
-        
-
-        
-            
+    
     def add_person(self,name,person_type,accommodation='N'):
         if person_type=="Staff":
             if accommodation=="Y":
@@ -30,8 +29,9 @@ class Dojo(object):
                 #check if its full (A room is full if len(room)==6)
                 print("Rooms Available")
                 random_room_index=random.randrange(how_many_offices_available)
-                print (person.name+" has been allocated the "+str(random_room_index)+" Ngapi"+self.list_office_rooms[random_room_index].name)#
-                self.list_office_rooms[random_room_index].append(person)#Add a Staff to the office
+                staff=Person.Staff.staff.Staff(person,self.list_office_rooms)
+                print (staff.allocate_room())
+                #self.list_office_rooms[random_room_index].append(person)#Add a Staff to the office
 
                 if len(self.list_office_rooms[random_room_index])==6:
                     #Room is Full: Remove it from List Of Non full Offices
@@ -136,47 +136,8 @@ class Dojo(object):
                 self.list_living_rooms.append(classi)
         else:
             return False
-        
-
-dojo=Dojo()
-
-dojo.create_room("Tsavo","OFFICE")
-dojo.create_room("Kikwetu","OFFICE")
-#dojo.create_room("GameOver","OFFICE")
-dojo.create_room("Man Eater","CUBE")
-#dojo.create_room("CostiBas","CUBE")
-#dojo.create_room("Man Shiba","CUBE")
-
-#dojo.add_person("Wahidu","Fellow","Y")
-#dojo.add_person("iduko","Fellow","Y")
-
-
-print ("The Dojo Have "+str(len(dojo.list_office_rooms))+" Starting Rooms")
-
-dojo.add_person("Makena1","Staff","Y")
-dojo.add_person("Mwiki11","Staff","Y")
-dojo.add_person("namine1","Fellow","Y")
-dojo.add_person("Makena2","Staff","Y")
-dojo.add_person("Mwiki2","Staff","Y")
-dojo.add_person("namine2","Fellow","Y")
-dojo.add_person("Makena3","Fellow","Y")
-dojo.add_person("Mwiki3","Staff","Y")
-dojo.add_person("namine3","Fellow","Y")
-
-dojo.add_person("Makena4","Staff","Y")
-dojo.add_person("Mwiki14","Staff","Y")
-dojo.add_person("namine4","Staff","Y")
-
-#dojo.add_person("Kimwi","Staff","Y")
-
-print ("The Dojo Have "+str(len(dojo.list_persons))+" Person's")
-print ("The Dojo Have "+str(len(dojo.list_office_rooms))+" Ending  Rooms")
-
-
-print ("The Dojo Have "+str(len(dojo.list_of_full_rooms))+" Full  Rooms")
-
-#Print Persons Inside An office
-for room in dojo.list_of_full_rooms:
-    print (room.name+" "+room.office_or_cube+" Has The following People")
-    for person in room:
-        print (person.name+" ")
+    def print_persons_in_room(list_of_full_rooms):
+        for room in list_of_full_rooms:
+            print (room.name+" "+room.office_or_cube+" Has The following People")
+            for person in room:
+                print (person.name+" ")
