@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # Cilass Dojo
 
-import Person.person_new
-import Person.Staff.staff
-import rooms.room_new
+from Person.person_new import Person
+from Person.Staff.staff import Staff
+from rooms.room_new import Room
 import random
 import collections
 
@@ -28,7 +28,7 @@ class Dojo(object):
             if accommodation == 'Y':
                 accommodation = 'N'
         print (name + ' has been successfully added.')
-        person = Person.person_new.Person(name, person_type,
+        person = Person(name, person_type,
                 accommodation)
         self.list_persons.append(person)
         how_many_offices_available = len(self.list_office_rooms)
@@ -43,7 +43,7 @@ class Dojo(object):
                 print ('Rooms Available')
                 random_room_index = \
                     random.randrange(how_many_offices_available)
-                staff = Person.Staff.staff.Staff(person,
+                staff = Staff(person,
                         self.list_office_rooms)
                 print (staff.allocate_room())
 
@@ -178,7 +178,7 @@ class Dojo(object):
 
     def create_room(self, name, office_or_cube):
         office_or_cube = office_or_cube.upper()
-        classi = rooms.room_new.Room(name, office_or_cube)
+        classi = Room(name, office_or_cube)
 
         if classi.office_or_cube == 'OFFICE':
             list_of_cube_names = classi.name.split(' ')
