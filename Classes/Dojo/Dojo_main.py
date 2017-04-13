@@ -10,7 +10,6 @@ import collections
 
 
 class Dojo(object):
-
     def __init__(self):
         self.list_persons = []
         self.list_living_rooms = []
@@ -187,25 +186,31 @@ class Dojo(object):
             for cube in range(0, len(list_of_cube_names)):
                 if list_of_cube_names[cube] in self.ll:
                     print (list_of_cube_names[cube]+" Exists")
+                    return False
                 else:
                     print ('An office called ' + list_of_cube_names[cube] \
                         + ' has been successfully created!')
                     self.list_office_rooms.append(classi)
                     self.ll.append(list_of_cube_names[cube])
+                    return True
+                    
         elif classi.office_or_cube == 'LIVING_ROOM':
             list_of_office_names = classi.name.split(',')
             for office in range(0, len(list_of_office_names)):
                 if list_of_office_names[office] in self.ll:
                     print(list_of_office_names[office]+" Exist's")
+                    return False
                 else:
                     print ('An Cube(Living Space) called ' \
                         + list_of_office_names[office] \
                         + ' has been successfully created!')
                     self.list_living_rooms.append(classi)
                     self.ll.append(list_of_office_names[office])
+                    return True
+                    
         else:
             return False
-
+    #ll=()
     def print_persons_in_room(list_of_full_rooms):
         for room in list_of_full_rooms:
             print (room.name + ' ' + room.office_or_cube \
